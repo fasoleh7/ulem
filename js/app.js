@@ -262,9 +262,9 @@ const progress = (() => {
         bar.style.width = Math.min((loaded / total) * 100, 90).toString() + "%";
         info.innerText = `Loading assets (${loaded}/${total}) [${parseInt(bar.style.width).toFixed(0)}%]`;
 
-        if (loaded == total) {
-            util.show();
-        }
+        
+        util.show();
+        
     };
 
     assets.forEach((asset) => {
