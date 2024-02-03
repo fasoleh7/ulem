@@ -259,11 +259,12 @@ const progress = (() => {
     const progress = () => {
         loaded += 1;
 
-        bar.style.width = Math.min((loaded / total) * 100, 90).toString() + "%";
+        bar.style.width = Math.min((loaded / total) * 100, 100).toString() + "%";
         info.innerText = `Loading assets (${loaded}/${total}) [${parseInt(bar.style.width).toFixed(0)}%]`;
 
-        
-        util.show();
+        if (loaded == 90) {
+            util.show();
+        }
         
     };
 
