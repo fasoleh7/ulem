@@ -247,34 +247,20 @@ const util = (() => {
     };
 })();
 
-const progress = (() => {
+const progress = () => {
+    const loadedImages = document.querySelectorAll('img').length;
+    const totalImages = document.querySelectorAll('img').length;
+    const progressBar = document.getElementById('bar');
+    const progressInfo = document.getElementById('progress-info');
 
-    const assets = document.querySelectorAll('img');
-    const info = document.getElementById('progress-info');
-    const bar = document.getElementById('bar');
+    const progressPercentage = Math.round((loadedImages / totalImages) * 90);
+    progressBar.style.width = `${progressPercentage}%`;
+    progressInfo.textContent = `${progressPercentage}%`;
 
-    let total = assets.length;
-    let loaded = 0;
-
-    const progress = () => {
-        loaded += 1;
-
-        bar.style.width = Math.min((loaded / total) * 100, 100).toString() + "%";
-        info.innerText = `Loading assets (${loaded}/${total}) [${parseInt(bar.style.width).toFixed(0)}%]`;
-
-        if (loaded == total) {
-            util.show();
-        }
-    };
-
-    assets.forEach((asset) => {
-        if (asset.complete && (asset.naturalWidth !== 0)) {
-            progress();
-        } else {
-            asset.addEventListener('load', () => progress());
-        }
-    });
-})();
+    if (progressPercentage === 90) {
+        util.show();
+    }
+};
 
 const audio = (() => {
     let audio = null;
